@@ -103,6 +103,17 @@ draws less power while generating text (~245W) than the rated power limit of eve
 those single cards. The real story here isn't "beats a modern GPU's efficiency" — it's
 running a genuinely huge model on cheap, heavily power-capped secondhand silicon at all.
 
+**What about a dual NVIDIA DGX Spark?** It's a natural comparison — a single DGX Spark draws
+roughly 140W and can be paired with a second unit over its ConnectX-7 networking to pool
+memory for big models, landing at a similar ~280W power envelope to our 3-card setup. We
+haven't benchmarked one ourselves, so take this as general knowledge rather than a measured
+result: DGX Spark's unified memory is fast to buy capacity in (128GB per unit) but relies on
+LPDDR5x, which is far slower than the HBM2 on real datacenter-class silicon like these
+unlocked A100 dies — and token-generation speed for large models is usually bottlenecked by
+memory bandwidth, not raw compute. Community reports on large MoE models running on dual Spark
+setups commonly describe decode speeds well below what we're seeing here, despite similar
+power draw. If that matches your own testing, we'd genuinely like to know — open an issue.
+
 ## How does this compare to the big AI assistants?
 
 For context, here's roughly how fast some well-known hosted assistants tend to feel in
