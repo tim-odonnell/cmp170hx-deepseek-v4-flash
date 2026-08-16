@@ -1,0 +1,57 @@
+0.00.023.178 W DEPRECATED: --mmap and --no-mmap are deprecated. use --load-mode mmap instead
+0.00.023.250 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.179.014 W srv  llama_server: -----------------
+0.00.179.017 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.179.017 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.179.017 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.179.017 W srv  llama_server: -----------------
+0.00.180.238 I srv    load_model: loading model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+0.00.287.761 E llama_init_from_model: failed to initialize the context: dflash requires ctx_other to be set (this warning is normal during memory fitting)
+0.00.301.734 W srv    load_model: [spec] failed to measure draft model memory: failed to create llama_context from model
+1.15.935.170 I common_speculative_init_result: loading draft model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/dspark/dspark-DeepSeek-V4-Flash-0731-Q8_0.gguf'
+1.22.679.025 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 65536, kv_unified = 'false'
+1.22.679.059 I common_speculative_impl_draft_dflash: adding speculative implementation 'draft-dspark'
+1.22.679.061 I common_speculative_impl_draft_dflash: - n_max=2, n_min=0, p_min=0.00
+1.22.679.061 I common_speculative_impl_draft_dflash: - block_size=5, mask_token_id=128799, n_extract=3
+1.22.692.778 I srv  llama_server: model loaded
+1.22.692.784 I srv  llama_server: listening on http://127.0.0.1:8080
+1.22.692.785 W srv  llama_server: NOTICE: server default port will be changed to :9931 in a future release
+1.22.692.785 W srv  llama_server:         ref: https://github.com/ggml-org/llama.cpp/pull/26508
+1.26.035.308 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+1.26.035.342 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+1.34.148.159 I slot print_timing: id  0 | task 0 | n_decoded =    102, tg =  13.93 t/s, tg_3s =  13.93 t/s
+1.37.254.294 I slot print_timing: id  0 | task 0 | n_decoded =    150, tg =  14.38 t/s, tg_3s =  15.45 t/s
+1.40.392.663 I slot print_timing: id  0 | task 0 | n_decoded =    203, tg =  14.96 t/s, tg_3s =  16.89 t/s
+1.43.504.966 I slot print_timing: id  0 | task 0 | n_decoded =    252, tg =  15.11 t/s, tg_3s =  15.74 t/s
+1.46.343.389 I slot print_timing: id  0 | task 0 | prompt eval time =     790.81 ms /    24 tokens (   32.95 ms per token,    30.35 tokens per second)
+1.46.343.397 I slot print_timing: id  0 | task 0 |        eval time =   19517.20 ms /   300 tokens (   65.06 ms per token,    15.37 tokens per second)
+1.46.343.398 I slot print_timing: id  0 | task 0 |       total time =   20308.01 ms /   324 tokens
+1.46.343.402 I slot print_timing: id  0 | task 0 |    graphs reused =        128
+1.46.343.406 I slot print_timing: id  0 | task 0 | draft acceptance = 0.62879 (  166 accepted /   264 generated), mean len =  2.26
+1.46.343.464 I slot      release: id  0 | task 0 | stop processing: n_tokens = 323, truncated = 0
+1.46.369.994 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 1.000 (> 0.100 thold), f_keep = 0.074
+1.46.388.556 I slot launch_slot_: id  0 | task 135 | processing task, is_child = 0
+1.53.125.206 I slot print_timing: id  0 | task 135 | n_decoded =    100, tg =  16.49 t/s, tg_3s =  16.49 t/s
+1.56.164.115 I slot print_timing: id  0 | task 135 | n_decoded =    154, tg =  16.92 t/s, tg_3s =  17.77 t/s
+1.59.262.720 I slot print_timing: id  0 | task 135 | n_decoded =    212, tg =  17.37 t/s, tg_3s =  18.72 t/s
+2.02.397.346 I slot print_timing: id  0 | task 135 | n_decoded =    270, tg =  17.61 t/s, tg_3s =  18.50 t/s
+2.04.487.948 I slot print_timing: id  0 | task 135 | prompt eval time =     672.51 ms /    24 tokens (   28.02 ms per token,    35.69 tokens per second)
+2.04.487.956 I slot print_timing: id  0 | task 135 |        eval time =   17426.78 ms /   300 tokens (   58.09 ms per token,    17.21 tokens per second)
+2.04.487.957 I slot print_timing: id  0 | task 135 |       total time =   18099.29 ms /   324 tokens
+2.04.487.958 I slot print_timing: id  0 | task 135 |    graphs reused =        239
+2.04.487.960 I slot print_timing: id  0 | task 135 | draft acceptance = 0.77021 (  181 accepted /   235 generated), mean len =  2.53
+2.04.487.992 I slot      release: id  0 | task 135 | stop processing: n_tokens = 323, truncated = 0
+2.04.513.633 I slot get_availabl: id  0 | task -1 | selected slot by LCP similarity, f_sim_best = 1.000 (> 0.100 thold), f_keep = 0.074
+2.04.531.797 I slot launch_slot_: id  0 | task 255 | processing task, is_child = 0
+2.12.129.519 I slot print_timing: id  0 | task 255 | n_decoded =    102, tg =  14.73 t/s, tg_3s =  14.73 t/s
+2.15.261.843 I slot print_timing: id  0 | task 255 | n_decoded =    151, tg =  15.02 t/s, tg_3s =  15.64 t/s
+2.18.297.112 I slot print_timing: id  0 | task 255 | n_decoded =    188, tg =  14.36 t/s, tg_3s =  12.19 t/s
+2.21.344.581 I slot print_timing: id  0 | task 255 | n_decoded =    230, tg =  14.25 t/s, tg_3s =  13.78 t/s
+2.24.480.378 I slot print_timing: id  0 | task 255 | n_decoded =    274, tg =  14.22 t/s, tg_3s =  14.03 t/s
+2.26.218.539 I slot print_timing: id  0 | task 255 | prompt eval time =     674.99 ms /    24 tokens (   28.12 ms per token,    35.56 tokens per second)
+2.26.218.543 I slot print_timing: id  0 | task 255 |        eval time =   21011.73 ms /   300 tokens (   70.04 ms per token,    14.28 tokens per second)
+2.26.218.544 I slot print_timing: id  0 | task 255 |       total time =   21686.72 ms /   324 tokens
+2.26.218.544 I slot print_timing: id  0 | task 255 |    graphs reused =        377
+2.26.218.548 I slot print_timing: id  0 | task 255 | draft acceptance = 0.54196 (  155 accepted /   286 generated), mean len =  2.08
+2.26.218.581 I slot      release: id  0 | task 255 | stop processing: n_tokens = 323, truncated = 0
+2.26.231.338 I srv    operator(): operator(): cleaning up before exit...

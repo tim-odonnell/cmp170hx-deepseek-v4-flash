@@ -1,0 +1,21 @@
+==================================================================
+ DeepSeek-V4-Flash-0731 UD-Q8_K_XL, dual CMP-170HX (128GB combined)
+==================================================================
+
+>>> no-spec baseline
+  GPU0 52791 MiB   GPU1 52339 MiB   hostRAM 60Gi
+  run1  prefill   45.86  decode  16.36 tok/s
+  run2  prefill   54.70  decode  16.38 tok/s
+  run3  prefill   54.59  decode  16.43 tok/s
+
+>>> DSpark n_max=3
+  GPU0 59883 MiB   GPU1 56569 MiB   hostRAM 60Gi
+  run1  prefill   41.29  decode  22.96 tok/s
+  run2  prefill   52.75  decode  23.67 tok/s
+  run3  prefill   52.55  decode  17.50 tok/s
+
+==================================================================
+  no-spec      decode  16.39 tok/s  prefill   51.72 tok/s
+  n_max=3      decode  21.38 tok/s  prefill   48.86 tok/s
+==================================================================
+csv: ./bench-results/q8kxl_dualgpu_20260808_122920.csv

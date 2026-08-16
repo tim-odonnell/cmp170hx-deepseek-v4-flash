@@ -1,0 +1,27 @@
+0.00.022.812 W DEPRECATED: --mmap and --no-mmap are deprecated. use --load-mode mmap instead
+0.00.022.881 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.484.098 W ggml_backend_cuda_device_get_memory: cudaMemGetInfo failed (CUDA-capable device(s) is/are busy or unavailable), returning 0/0
+0.00.484.579 W srv  llama_server: -----------------
+0.00.484.581 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.484.581 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.484.581 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.484.582 W srv  llama_server: -----------------
+0.00.494.534 I srv    load_model: loading model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+0.00.596.567 E llama_init_from_model: failed to initialize the context: dflash requires ctx_other to be set (this warning is normal during memory fitting)
+0.00.614.545 W srv    load_model: [spec] failed to measure draft model memory: failed to create llama_context from model
+0.00.732.248 E ggml_backend_cuda_buffer_type_alloc_buffer: allocating 5.25 MiB on device 0: cudaMalloc failed: CUDA-capable device(s) is/are busy or unavailable
+0.00.732.251 E alloc_tensor_range: failed to allocate CUDA0 buffer of size 5505024
+0.00.734.169 E llama_init_from_model: failed to initialize the context: failed to allocate buffer for DSV4 compressor state
+0.00.752.742 E common_fit_params: encountered an error while trying to fit params to free device memory: failed to create llama_context from model
+0.00.783.065 W ggml_backend_cuda_device_get_memory: cudaMemGetInfo failed (CUDA-capable device(s) is/are busy or unavailable), returning 0/0
+0.00.783.745 W ggml_backend_cuda_device_get_memory: cudaMemGetInfo failed (CUDA-capable device(s) is/are busy or unavailable), returning 0/0
+0.00.846.902 W ggml_backend_cuda_device_get_memory: cudaMemGetInfo failed (CUDA-capable device(s) is/are busy or unavailable), returning 0/0
+0.00.849.951 W ggml_backend_cuda_device_get_memory: cudaMemGetInfo failed (CUDA-capable device(s) is/are busy or unavailable), returning 0/0
+0.00.849.970 E ggml_backend_cuda_buffer_type_alloc_buffer: allocating 153355.81 MiB on device 0: cudaMalloc failed: CUDA-capable device(s) is/are busy or unavailable
+0.00.849.972 E alloc_tensor_range: failed to allocate CUDA0 buffer of size 160805221376
+0.00.864.722 E llama_model_load: error loading model: unable to allocate CUDA0 buffer
+0.00.864.727 E llama_model_load_from_file_impl: failed to load model
+0.00.864.732 E cmn  common_init_: failed to load model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+0.00.864.737 E srv    load_model: failed to load model, '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+0.00.864.739 I srv    operator(): operator(): cleaning up before exit...
+0.00.865.487 E srv  llama_server: exiting due to model loading error

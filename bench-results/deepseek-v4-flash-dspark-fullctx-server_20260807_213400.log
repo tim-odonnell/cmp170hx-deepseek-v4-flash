@@ -1,0 +1,20 @@
+0.00.023.199 W DEPRECATED: --mmap and --no-mmap are deprecated. use --load-mode mmap instead
+0.00.023.270 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.181.124 W srv  llama_server: -----------------
+0.00.181.126 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.181.126 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.181.126 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.181.126 W srv  llama_server: -----------------
+0.00.182.403 I srv    load_model: loading model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+0.00.303.667 E llama_init_from_model: failed to initialize the context: dflash requires ctx_other to be set (this warning is normal during memory fitting)
+0.00.319.952 W srv    load_model: [spec] failed to measure draft model memory: failed to create llama_context from model
+1.15.405.393 I common_speculative_init_result: loading draft model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/dspark/dspark-DeepSeek-V4-Flash-0731-Q8_0.gguf'
+1.22.200.880 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 1048576, kv_unified = 'false'
+1.22.200.917 I common_speculative_impl_draft_dflash: adding speculative implementation 'draft-dspark'
+1.22.200.920 I common_speculative_impl_draft_dflash: - n_max=3, n_min=0, p_min=0.00
+1.22.200.921 I common_speculative_impl_draft_dflash: - block_size=5, mask_token_id=128799, n_extract=3
+1.22.220.020 I srv  llama_server: model loaded
+1.22.220.026 I srv  llama_server: listening on http://0.0.0.0:8080
+1.22.220.026 W srv  llama_server: NOTICE: server default port will be changed to :9931 in a future release
+1.22.220.027 W srv  llama_server:         ref: https://github.com/ggml-org/llama.cpp/pull/26508
+35.00.904.071 I srv    operator(): operator(): cleaning up before exit...

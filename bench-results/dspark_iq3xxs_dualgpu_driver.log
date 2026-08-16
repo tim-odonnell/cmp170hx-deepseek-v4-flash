@@ -1,0 +1,37 @@
+==================================================================
+ DeepSeek-V4-Flash-0731 UD-IQ3_XXS, dual CMP-170HX (128GB combined)
+==================================================================
+
+>>> no-spec baseline
+  GPU0 49925 MiB   GPU1 51505 MiB   hostRAM 6Gi
+  run1  prefill   76.95  decode  32.40 tok/s
+  run2  prefill  107.01  decode  31.97 tok/s
+  run3  prefill  103.96  decode  31.97 tok/s
+
+>>> DSpark n_max=2
+  GPU0 60438 MiB   GPU1 52609 MiB   hostRAM 6Gi
+  run1  prefill   64.76  decode  20.56 tok/s
+  run2  prefill   63.59  decode  34.65 tok/s
+  run3  prefill   48.52  decode  36.02 tok/s
+
+>>> DSpark n_max=3
+  GPU0 60693 MiB   GPU1 52613 MiB   hostRAM 7Gi
+  run1  prefill   59.13  decode  34.67 tok/s
+  run2  prefill   79.31  decode  28.52 tok/s
+  run3  prefill   76.93  decode  33.98 tok/s
+
+>>> DSpark n_max=5
+  GPU0 60673 MiB   GPU1 52625 MiB   hostRAM 7Gi
+  run1  prefill   52.67  decode  27.33 tok/s
+  run2  prefill   76.03  decode  21.79 tok/s
+  run3  prefill   79.49  decode  32.19 tok/s
+
+==================================================================
+  no-spec      decode  32.11 tok/s  prefill   95.97 tok/s
+  n_max=2      decode  30.41 tok/s  prefill   58.96 tok/s
+  n_max=3      decode  32.39 tok/s  prefill   71.79 tok/s
+  n_max=5      decode  27.10 tok/s  prefill   69.40 tok/s
+
+  BEST: n_max=3 at 32.39 tok/s
+==================================================================
+csv: ./bench-results/dspark_iq3xxs_dualgpu_20260808_120253.csv

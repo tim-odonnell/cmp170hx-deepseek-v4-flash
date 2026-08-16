@@ -1,0 +1,10 @@
+[vllm-cmp170hx-p3] starting container on device(s) 0,1, TP=2, port 10004 ...
+[vllm-cmp170hx-p3] waiting for vLLM ready (thermal watchdog active, abort at core>=83C / mem>=90C) ...
+[vllm-cmp170hx-p3] ready.
+[vllm-cmp170hx-p3] running timed CAD-prompt request (max_tokens=24000, temperature=0.2) ...
+==================================================================
+[vllm-cmp170hx-p3] RESULT: tokens=24000  wall_time=164.054094087s  TG=146.29 tok/s
+[vllm-cmp170hx-p3] thermal log: /home/user/CMP-170HX-PROJECT/bench-results/thermal_vllm-cmp170hx-p3_20260813_223335.csv
+timestamp,gpu_idx,temp_core_c,temp_mem_c,power_w,util_pct
+==================================================================
+P3_EXIT=0

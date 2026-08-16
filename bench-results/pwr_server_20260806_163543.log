@@ -1,0 +1,8 @@
+0.00.021.531 W DEPRECATED: --mmap and --no-mmap are deprecated. use --load-mode mmap instead
+0.00.021.595 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.187.764 W srv  llama_server: -----------------
+0.00.187.766 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.187.767 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.187.767 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.187.767 W srv  llama_server: -----------------
+0.00.188.993 I srv    load_model: loading model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'

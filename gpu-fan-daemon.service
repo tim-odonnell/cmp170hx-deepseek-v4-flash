@@ -1,0 +1,16 @@
+[Unit]
+Description=CMP 170HX multi-GPU reactive fan control
+After=nvidia-persistenced.service
+Wants=nvidia-persistenced.service
+
+[Service]
+Type=simple
+Environment=FLOOR_DUTY=55
+ExecStart=/home/user/CMP-170HX-PROJECT/gpu-fan-daemon.sh
+ExecStopPost=/home/user/CMP-170HX-PROJECT/gpu-fan-daemon.sh --restore
+Restart=on-failure
+RestartSec=10
+User=root
+
+[Install]
+WantedBy=multi-user.target

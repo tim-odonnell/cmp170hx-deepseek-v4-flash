@@ -1,0 +1,3 @@
+label,tflops,watts,sm_mhz,gflops_per_w
+ceil1400_off0,65.33,100.3,803,651
+ceil1400_off300,65.31,100.3,759,651

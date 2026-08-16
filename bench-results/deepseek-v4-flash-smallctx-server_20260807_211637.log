@@ -1,0 +1,14 @@
+0.00.021.928 W DEPRECATED: --mmap and --no-mmap are deprecated. use --load-mode mmap instead
+0.00.022.014 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.179.034 W srv  llama_server: -----------------
+0.00.179.036 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.179.036 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.179.036 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.179.037 W srv  llama_server: -----------------
+0.00.180.265 I srv    load_model: loading model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+1.16.390.334 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 4096, kv_unified = 'false'
+1.16.393.946 I srv  llama_server: model loaded
+1.16.393.950 I srv  llama_server: listening on http://0.0.0.0:8080
+1.16.393.950 W srv  llama_server: NOTICE: server default port will be changed to :9931 in a future release
+1.16.393.950 W srv  llama_server:         ref: https://github.com/ggml-org/llama.cpp/pull/26508
+17.06.462.068 I srv    operator(): operator(): cleaning up before exit...

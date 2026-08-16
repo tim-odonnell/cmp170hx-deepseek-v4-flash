@@ -1,0 +1,23 @@
+0.00.023.522 W DEPRECATED: --mmap and --no-mmap are deprecated. use --load-mode mmap instead
+0.00.023.589 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.197.896 W srv  llama_server: -----------------
+0.00.197.899 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.197.899 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.197.899 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.197.899 W srv  llama_server: -----------------
+0.00.199.526 I srv    load_model: loading model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+1.17.077.187 I srv    load_model: initializing, n_slots = 1, n_ctx_slot = 8192, kv_unified = 'false'
+1.17.083.356 I srv  llama_server: model loaded
+1.17.083.360 I srv  llama_server: listening on http://127.0.0.1:8080
+1.17.083.361 W srv  llama_server: NOTICE: server default port will be changed to :9931 in a future release
+1.17.083.361 W srv  llama_server:         ref: https://github.com/ggml-org/llama.cpp/pull/26508
+1.22.991.269 I slot get_availabl: id  0 | task -1 | selected slot by LRU, t_last = -1
+1.22.991.303 I slot launch_slot_: id  0 | task 0 | processing task, is_child = 0
+1.31.041.795 I slot print_timing: id  0 | task 0 | n_decoded =    100, tg =  13.55 t/s, tg_3s =  13.55 t/s
+1.34.052.156 I slot print_timing: id  0 | task 0 | n_decoded =    140, tg =  13.47 t/s, tg_3s =  13.29 t/s
+1.35.539.044 I slot print_timing: id  0 | task 0 | prompt eval time =     668.62 ms /    20 tokens (   33.43 ms per token,    29.91 tokens per second)
+1.35.539.048 I slot print_timing: id  0 | task 0 |        eval time =   11879.09 ms /   160 tokens (   74.24 ms per token,    13.47 tokens per second)
+1.35.539.048 I slot print_timing: id  0 | task 0 |       total time =   12547.71 ms /   180 tokens
+1.35.539.053 I slot print_timing: id  0 | task 0 |    graphs reused =        157
+1.35.539.091 I slot      release: id  0 | task 0 | stop processing: n_tokens = 179, truncated = 0
+1.35.647.114 I srv    operator(): operator(): cleaning up before exit...

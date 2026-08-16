@@ -1,0 +1,30 @@
+==================================================================
+ DSpark n-max sweep: DeepSeek-V4-Flash-0731 UD-IQ3_XXS on CMP-170HX
+==================================================================
+
+>>> n_max=2
+  VRAM 63142 MiB   hostRAM 55Gi
+  run1  prefill   30.22  decode  20.49 tok/s
+  run2  prefill   34.63  decode  20.52 tok/s
+  run3  prefill   34.64  decode  16.62 tok/s
+
+>>> n_max=3
+  VRAM 63154 MiB   hostRAM 55Gi
+  run1  prefill   30.13  decode  19.66 tok/s
+  run2  prefill   34.75  decode  17.17 tok/s
+  run3  prefill   34.54  decode  20.78 tok/s
+
+>>> n_max=5
+  VRAM 63176 MiB   hostRAM 55Gi
+  run1  prefill   30.30  decode  14.05 tok/s
+  run2  prefill   33.99  decode  13.48 tok/s
+  run3  prefill   33.90  decode   9.73 tok/s
+
+==================================================================
+  n_max=2    decode  19.21 tok/s  prefill   33.16 tok/s
+  n_max=3    decode  19.21 tok/s  prefill   33.14 tok/s
+  n_max=5    decode  12.42 tok/s  prefill   32.73 tok/s
+
+  BEST: n_max=2 at 19.21 tok/s
+==================================================================
+csv: ./bench-results/dspark_iq3xxs_nmax_sweep_20260808_103434.csv

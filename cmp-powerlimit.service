@@ -1,0 +1,13 @@
+[Unit]
+Description=CMP 170HX power limit (100W, auto-discovered)
+After=nvidia-persistenced.service
+Wants=nvidia-persistenced.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=POWER_LIMIT=100
+ExecStart=/home/user/CMP-170HX-PROJECT/set-power-limit.sh
+
+[Install]
+WantedBy=multi-user.target

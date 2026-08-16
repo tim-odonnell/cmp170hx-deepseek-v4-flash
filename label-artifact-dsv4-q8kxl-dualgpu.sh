@@ -1,0 +1,181 @@
+#!/usr/bin/env bash
+# DeepSeek-V4-Flash-0731 UD-Q8_K_XL + DSpark, dual-GPU, full-ctx variant of label-artifact.sh.
+# Waits for the cowboy-clue HTML, labels it with full provenance, writes an ARTIFACT-*.md sidecar
+# with measured performance parsed directly from the server log + dual-GPU thermal CSV.
+set -uo pipefail
+R="${1:-/home/user/cowboy-clue benchmark/runs/cowboy-clue-dsv4-q8kxl-dualgpu}"
+LABEL="cmp170hx-dual-128gb-vram-partial-gpu_deepseek-v4-flash-0731-q8kxl-dspark_cachefix_$(date +%Y%m%d)"
+
+find_html() { ls -S "$R"/*.html 2>/dev/null | grep -v '\.original\.html$' | grep -v "_${LABEL}\.html$" | head -1; }
+
+echo "[$(date '+%F %T')] looking for an HTML artifact in $R"
+for i in $(seq 1 2160); do SRC=$(find_html); [[ -n "${SRC:-}" && -s "$SRC" ]] && break; sleep 10; done
+SRC=$(find_html)
+[[ -n "${SRC:-}" && -s "$SRC" ]] || { echo "ERROR: no HTML artifact appeared"; exit 1; }
+
+prev=0; for i in $(seq 1 40); do
+    cur=$(wc -c < "$SRC"); [[ "$cur" == "$prev" ]] && break; prev=$cur; sleep 15
+done
+echo "[$(date '+%F %T')] settled on $(basename "$SRC"): $(wc -c < "$SRC") bytes"
+echo "[$(date '+%F %T')] NOTE: this 'settled' snapshot may still be mid-session -- re-run this"
+echo "    script manually after the driver script fully exits to capture the true final version"
+echo "    (both IQ3_XXS runs earlier today needed this re-verification step)."
+
+BASE="${SRC%.html}"
+cp -n "$SRC" "${BASE}.original.html"
+
+DRV=$(nvidia-smi --query-gpu=driver_version --format=csv,noheader | head -1)
+GPU0=$(nvidia-smi -i 0 --query-gpu=name,memory.total,vbios_version --format=csv,noheader)
+GPU1=$(nvidia-smi -i 1 --query-gpu=name,memory.total,vbios_version --format=csv,noheader)
+SER0=$(nvidia-smi -i 0 -q | awk -F: '/Serial Number/{gsub(/^ +/,"",$2);print $2;exit}')
+SER1=$(nvidia-smi -i 1 -q | awk -F: '/Serial Number/{gsub(/^ +/,"",$2);print $2;exit}')
+PL=$(nvidia-smi -i 0 --query-gpu=power.limit --format=csv,noheader)
+CPU=$(lscpu | awk -F: '/Model name/{gsub(/^ +/,"",$2);print $2;exit}')
+RAMSPD=$(sudo dmidecode -t memory 2>/dev/null | awk -F: '/Configured Memory Speed/{gsub(/ /,"",$2);print $2;exit}')
+RAMTOT=$(free -g | awk '/^Mem:/{print $2"GiB"}')
+COMMIT=$(cd /home/user/llama.cpp-portable && git log -1 --format=%h 2>/dev/null)
+BYTES=$(wc -c < "$SRC"); LINES=$(wc -l < "$SRC")
+VRAM0=$(nvidia-smi -i 0 --query-gpu=memory.used --format=csv,noheader,nounits)
+VRAM1=$(nvidia-smi -i 1 --query-gpu=memory.used --format=csv,noheader,nounits)
+HOSTRAM=$(free -g | awk '/^Mem:/{print $3}')
+
+S=$(ls -t "$R"/server_*.log 2>/dev/null | head -1)
+T=$(ls -t "$R"/thermal_*.csv 2>/dev/null | head -1)
+
+PERF=$(python3 - "$S" "$T" <<'PYEOF'
+import re, csv, sys
+S, T = sys.argv[1], sys.argv[2]
+out = []
+txt = open(S, errors='ignore').read() if S else ""
+allev = re.findall(r'(prompt )?eval time =\s*[\d.]+ ms /\s*(\d+) tokens \(\s*[\d.]+ ms per token,\s*([\d.]+) tokens per second\)', txt)
+dec = [(int(t), float(s)) for p, t, s in allev if not p]
+pre = [(int(t), float(s)) for p, t, s in allev if p]
+def rep(name, rows):
+    if not rows:
+        out.append(f"  {name}: none")
+        return
+    toks = sum(t for t, _ in rows); sp = [s for _, s in rows]
+    wavg = sum(t*s for t, s in rows)/toks if toks else 0
+    out.append(f"  {name:8s} tasks {len(rows):3d}   tokens {toks:7d}   min {min(sp):6.2f}  max {max(sp):6.2f}  mean {sum(sp)/len(sp):6.2f}  token-weighted {wavg:6.2f} tok/s")
+rep("decode", dec); rep("prefill", pre)
+tasks = re.findall(r'task (\d+) \|\s+total time =\s*([\d.]+) ms /\s*(\d+) tokens', txt)
+total_ms = sum(float(t) for _,t,_ in tasks)
+pf_ms = sum(float(m) for p,m,t in allev if p)
+dc_ms = sum(float(m) for p,m,t in allev if not p)
+if total_ms:
+    out.append(f"  cache-reuse check: prefill {pf_ms/max(total_ms,1)*100:.1f}% of LLM time, decode {dc_ms/max(total_ms,1)*100:.1f}% ({len(tasks)} tasks)")
+acc = re.findall(r'draft acceptance = ([\d.]+) \(\s*(\d+) accepted /\s*(\d+) generated\)', txt)
+if acc:
+    accs = [float(a) for a, _, _ in acc]
+    out.append(f"  draft acceptance: n={len(accs)} min {min(accs)*100:.1f}%  max {max(accs)*100:.1f}%  mean {sum(accs)/len(accs)*100:.1f}%")
+
+if T:
+    rows = list(csv.DictReader(open(T)))
+    def col(n):
+        v = []
+        for r in rows:
+            x = r.get(n)
+            if x not in (None, ''):
+                try: v.append(float(x))
+                except ValueError: pass
+        return v
+    out.append("")
+    for name, label in [('gpu0_c','GPU0 core'),('mem0_c','GPU0 HBM'),('gpu1_c','GPU1 core'),('mem1_c','GPU1 HBM'),
+                         ('cpu_c','CPU'),('power0_w','GPU0 W'),('power1_w','GPU1 W'),
+                         ('util0_pct','GPU0 util%'),('util1_pct','GPU1 util%'),('fan_duty_pct','fan duty%')]:
+        v = col(name)
+        if v:
+            out.append(f"  {label:10s} min {min(v):8.1f}   max {max(v):8.1f}   avg {sum(v)/len(v):8.1f}")
+    if rows:
+        out.append(f"\n  duration {int(rows[-1]['elapsed_s'])//60}m {int(rows[-1]['elapsed_s'])%60}s, {len(rows)} samples @2s")
+print("\n".join(out))
+PYEOF
+)
+
+read -r -d '' HDR <<EOF || true
+<!--
+  ============================================================================
+  $(basename "$SRC") - generated by a local LLM, not written by a human.
+
+  MODEL      unsloth/DeepSeek-V4-Flash-0731  UD-Q8_K_XL  (~150.75 GiB, 5 shards)
+             284B total params / 13B active per token, MoE, arch "deepseek4"
+             (MLA + DSA sparse attention), + DSpark drafter (10.15 GiB, --spec-draft-n-max 3)
+  ENGINE     llama.cpp mainline ${COMMIT}, built for sm_80 / CUDA 12.8
+  HARNESS    opencode, single agentic build task
+
+  HARDWARE   GPU0 ${GPU0} (serial ${SER0})
+             GPU1 ${GPU1} (serial ${SER1})
+                  driver ${DRV}, power cap ${PL} each, PCIe Gen2 x4 each, PHB (no NVLink/P2P)
+                  ** memory UNLOCKED 8GB -> 64GB each via cmpunlocker (GA100 die) **
+             CPU  ${CPU}
+             RAM  ${RAMTOT} DDR5 @ ${RAMSPD}
+             PARTIAL GPU-resident (Q8_K_XL doesn't fit 128GB): VRAM0 ${VRAM0} MiB, VRAM1 ${VRAM1} MiB,
+             host RAM ${HOSTRAM}GiB (unlike IQ3_XXS which stayed near-baseline)
+
+  SETTINGS   --fit on --fit-target 12288  --ctx-size 1048576 (full native max)  -ctk f16 -ctv f16
+             --spec-type draft-dspark --spec-draft-n-max 3 --n-gpu-layers-draft 999
+             --reasoning-format deepseek --reasoning-budget 2000  --threads 11 --no-mmap
+             --cache-reuse 256 --cache-ram -1  (cache-reuse fix applied from the start --
+             see LLAMA-SERVER-CACHE-REUSE-FIX.md, learned from the IQ3_XXS run earlier today)
+
+  OUTPUT     ${BYTES} bytes, ${LINES} lines
+  GENERATED  $(date '+%Y-%m-%d %H:%M:%S %Z')
+
+  Pristine copy (no comment block): $(basename "${BASE}").original.html
+  Full metrics: ARTIFACT-${LABEL}.md
+  ============================================================================
+-->
+EOF
+
+python3 - "$SRC" "${BASE}_${LABEL}.html" "$HDR" <<'PY'
+import re,sys
+src,dst,hdr=sys.argv[1],sys.argv[2],sys.argv[3]
+s=open(src,encoding='utf-8',errors='replace').read()
+m=re.search(r'<!DOCTYPE[^>]*>',s,re.I)
+if m:
+    out=s[:m.end()]+"\n"+hdr+s[m.end():]
+else:
+    out=hdr+"\n"+s
+open(dst,'w',encoding='utf-8').write(out)
+print(f"labelled -> {dst} ({len(out)} bytes)")
+PY
+
+{
+  echo "# Artifact provenance - $(basename "$SRC")"
+  echo
+  echo "Generated $(date '+%Y-%m-%d %H:%M:%S %Z') on dual unlocked CMP 170HX (128GB combined VRAM)."
+  echo
+  echo '## Model'
+  echo '- `unsloth/DeepSeek-V4-Flash-0731` **UD-Q8_K_XL** (~150.75 GiB, 5 shards) + DSpark drafter (10.15 GiB)'
+  echo '- 284B total / 13B active per token, MoE, arch `deepseek4` (MLA + DSA sparse attention)'
+  echo "- Engine: llama.cpp mainline \`${COMMIT}\`, **sm_80** build, CUDA 12.8"
+  echo '- Harness: opencode, single agentic build task'
+  echo
+  echo '## Hardware'
+  echo "- **GPU0**: ${GPU0} (serial ${SER0})"
+  echo "- **GPU1**: ${GPU1} (serial ${SER1})"
+  echo "  - driver ${DRV}, power cap ${PL} each, PCIe Gen2 x4 each, **PHB topology (no NVLink/P2P)**"
+  echo '  - **memory unlocked 8 GB -> 64 GB each** via cmpunlocker (GA100 die)'
+  echo "- **CPU**: ${CPU}"
+  echo "- **RAM**: ${RAMTOT} DDR5 @ ${RAMSPD}"
+  echo "- **PARTIAL GPU-resident** (Q8_K_XL doesn't fit 128GB): VRAM0 ${VRAM0} MiB, VRAM1 ${VRAM1} MiB, host RAM ${HOSTRAM}GiB"
+  echo
+  echo '## Output'
+  echo "- ${BYTES} bytes, ${LINES} lines"
+  echo '- Comparison, Q8_K_XL dual-GPU ctx=65536 sweep (2026-08-08): DSpark n_max=3 best = 21.38 tok/s'
+  echo '- Comparison, IQ3_XXS dual-GPU full-ctx agentic session (2026-08-08): 30.98 tok/s token-weighted, 31m30s'
+  echo
+  echo '## Measured performance'
+  echo '```'
+  echo "$PERF"
+  echo '```'
+} > "$R/ARTIFACT-${LABEL}.md"
+
+echo "[$(date '+%F %T')] done:"
+ls -la "$R"/*.html "$R/ARTIFACT-${LABEL}.md"
+
+COLLECTION="/home/user/cowboy-clue benchmark/all-cowboy-clue-games"
+mkdir -p "$COLLECTION"
+cp -f "${BASE}_${LABEL}.html" "$COLLECTION/"
+cp -f "$R/ARTIFACT-${LABEL}.md" "$COLLECTION/"
+echo "[$(date '+%F %T')] copied into collection: $COLLECTION/$(basename "${BASE}_${LABEL}.html")"

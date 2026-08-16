@@ -1,0 +1,21 @@
+==================================================================
+ DSpark clean recheck: DeepSeek-V4-Flash-0731 UD-Q8_K_XL, 5600MT/s RAM
+==================================================================
+
+>>> n_max=2
+  VRAM 62994 MiB   hostRAM 108Gi
+  run1  prefill   30.35  decode  15.37 tok/s
+  run2  prefill   35.69  decode  17.21 tok/s
+  run3  prefill   35.56  decode  14.28 tok/s
+
+>>> n_max=3
+  VRAM 63006 MiB   hostRAM 108Gi
+  run1  prefill   30.38  decode  16.54 tok/s
+  run2  prefill   35.64  decode  19.34 tok/s
+  run3  prefill   35.68  decode  17.62 tok/s
+
+==================================================================
+  n_max=2    decode  15.62 tok/s  prefill   33.86 tok/s
+  n_max=3    decode  17.83 tok/s  prefill   33.90 tok/s
+==================================================================
+csv: ./bench-results/dspark_q8kxl_nmax_check_20260808_112906.csv

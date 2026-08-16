@@ -1,0 +1,37 @@
+**You are taking a real product from concept to a render-ready, manufacturable design — in
+one pass. Design a handheld *thermal-imaging inspection camera*: a pistol-grip device
+housing a Raspberry Pi Zero 2 W, a 2.8" 320×240 SPI display, a small thermal-sensor module
+at the nose, a single 18650 Li-ion cell, and an index-finger trigger. Deliver all four parts
+below as one coherent package.**
+
+**1. Industrial design brief (250–400 words).** Define the target user and use context.
+Justify the form and pistol-grip ergonomics — grip diameter, trigger reach, center of
+mass/balance, one-handed and gloved use. Specify material + process (e.g. FDM vs injection
+moulding), wall thickness, draft angles, surface finish, and 2–3 explicit Design-for-
+Manufacture decisions. Address thermal management and ingress (vents vs sealing), and at
+least one accessibility consideration.
+
+**2. Parametric CAD model — working Python (CadQuery *or* build123d).** Build the enclosure
+as a **two-part snap-fit shell**. Put *every* important dimension as a named parameter at
+the top: grip length/diameter, body size, wall thickness, screen cutout, sensor bore,
+trigger pocket, USB-C charge port, internal mounting bosses for the Pi and cell, ventilation
+slots, and a global fillet radius. Use realistic component dimensions and **state every
+assumption as a comment**. The solid must be watertight, use fillets/chamfers where a real
+product would, include screw bosses or snap features with **stated clearances/tolerances**,
+and export both STEP and STL. The script must run as-is — don't invent library APIs; note
+the library version.
+
+**3. Rendering — working Blender `bpy` script.** Import the exported model, assign realistic
+materials (textured matte ABS body, rubberized grip, glass screen), set up studio/3-point
+lighting with an environment, place a 3/4 hero camera, and render a presentation PNG at
+1600×1200. Describe in 2–3 sentences the look you're going for.
+
+**4. Supporting software — a small but real CLI.** Provide a command-line entry point that
+regenerates the model for different parameter sets (e.g. `--grip-diameter`,
+`--cell 18650|21700`, `--screen 2.8|3.5`), validates inputs (wall thickness ≥ a safe
+minimum, bosses don't intersect cutouts), and emits the STEP/STL plus a JSON "spec sheet":
+overall dimensions, estimated mass from material density, and part count.
+
+**Constraints:** keep both scripts self-contained and runnable; flag any spot where a real
+engineer would need a tolerance test-print; and state the total estimated printed mass and
+whether the design is injection-mouldable without side-actions.

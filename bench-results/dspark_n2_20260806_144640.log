@@ -1,0 +1,19 @@
+0.00.022.760 W DEPRECATED: --mmap and --no-mmap are deprecated. use --load-mode mmap instead
+0.00.022.841 I cmn  common_param: common_params_print_info: verbosity = 3 (adjust with the `-lv N` CLI arg)
+0.00.183.935 W srv  llama_server: -----------------
+0.00.183.937 W srv  llama_server: CORS is set to allow all origins ('*') and no API key is set
+0.00.183.938 W srv  llama_server: this can be a security risk (cross-origin attacks)
+0.00.183.938 W srv  llama_server: more info: https://github.com/ggml-org/llama.cpp/pull/25655
+0.00.183.938 W srv  llama_server: -----------------
+0.00.185.168 I srv    load_model: loading model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/UD-Q8_K_XL/DeepSeek-V4-Flash-0731-UD-Q8_K_XL-00001-of-00005.gguf'
+0.00.301.168 E llama_init_from_model: failed to initialize the context: dflash requires ctx_other to be set (this warning is normal during memory fitting)
+0.00.316.640 W srv    load_model: [spec] failed to measure draft model memory: failed to create llama_context from model
+1.18.479.174 I common_speculative_init_result: loading draft model '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/dspark/dspark-DeepSeek-V4-Flash-0731-Q8_0.gguf'
+1.18.596.376 E ggml_backend_cuda_buffer_type_alloc_buffer: allocating 10386.28 MiB on device 0: cudaMalloc failed: out of memory
+1.18.596.381 E alloc_tensor_range: failed to allocate CUDA0 buffer of size 10890805248
+1.18.612.398 E llama_model_load: error loading model: unable to allocate CUDA0 buffer
+1.18.612.403 E llama_model_load_from_file_impl: failed to load model
+1.18.612.404 E common_speculative_init_result: failed to load draft model, '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/dspark/dspark-DeepSeek-V4-Flash-0731-Q8_0.gguf'
+1.18.612.413 E srv    load_model: failed to load draft model, '/home/user/ai-models/unsloth-DeepSeek-V4-Flash-0731/dspark/dspark-DeepSeek-V4-Flash-0731-Q8_0.gguf'
+1.18.612.420 I srv    operator(): operator(): cleaning up before exit...
+1.18.613.114 E srv  llama_server: exiting due to model loading error
