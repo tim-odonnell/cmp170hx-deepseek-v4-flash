@@ -69,7 +69,14 @@ in GPU VRAM, so the rest of the PC barely matters:
   during inference, so there's nothing to gain from spending more here.
 - **Splitting one slot into three**: a PCIe x16→x4/x4/x4/x4 bifurcation card plugged into the
   board's one x16 slot, plus a riser cable per card to physically route them out of the case.
-  **Check your motherboard's BIOS explicitly supports 4-way bifurcation before buying anything**
+  Confirmed-working example: the **ASRock B550 Phantom Gaming-ITX/ax** (or its X570 sibling,
+  the Phantom Gaming-ITX/TB3) — both support true 4-way bifurcation, per a
+  [community deep-dive that decompiled the actual BIOS files](https://linustechtips.com/topic/1479023-mini-itx-am4-boards-with-bifurcation-support/)
+  to verify it (most ITX boards only offer 2-way or 3-way splits, so don't assume yours does).
+  One quirk from that same research: pairing either board with a Ryzen 5000G-series APU costs
+  you one of the four x4 links — which works out perfectly here, since that leaves exactly the
+  3 links this build needs.
+  **Still confirm your specific board and BIOS version before buying anything.**
   — many boards don't.
 - **Power supply**: budget for the GPUs' 300W combined cap plus roughly 65-100W for the rest of
   the machine. A 650-750W unit gives comfortable headroom rather than cutting it close.
