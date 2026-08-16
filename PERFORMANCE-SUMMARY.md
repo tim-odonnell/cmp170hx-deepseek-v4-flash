@@ -77,7 +77,6 @@ in GPU VRAM, so the rest of the PC barely matters:
   you one of the four x4 links — which works out perfectly here, since that leaves exactly the
   3 links this build needs.
   **Still confirm your specific board and BIOS version before buying anything.**
-  — many boards don't.
 - **Power supply**: budget for the GPUs' 300W combined cap plus roughly 65-100W for the rest of
   the machine. A 650-750W unit gives comfortable headroom rather than cutting it close.
 
