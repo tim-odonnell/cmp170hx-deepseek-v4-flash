@@ -106,13 +106,16 @@ running a genuinely huge model on cheap, heavily power-capped secondhand silicon
 **What about a dual NVIDIA DGX Spark?** It's a natural comparison — a single DGX Spark draws
 roughly 140W and can be paired with a second unit over its ConnectX-7 networking to pool
 memory for big models, landing at a similar ~280W power envelope to our 3-card setup. We
-haven't benchmarked one ourselves, so take this as general knowledge rather than a measured
-result: DGX Spark's unified memory is fast to buy capacity in (128GB per unit) but relies on
-LPDDR5x, which is far slower than the HBM2 on real datacenter-class silicon like these
-unlocked A100 dies — and token-generation speed for large models is usually bottlenecked by
-memory bandwidth, not raw compute. Community reports on large MoE models running on dual Spark
-setups commonly describe decode speeds well below what we're seeing here, despite similar
-power draw. If that matches your own testing, we'd genuinely like to know — open an issue.
+haven't benchmarked one ourselves, so this is other people's reported numbers, not our own
+measurement: [a documented 2x DGX Spark runbook for this exact
+model](https://github.com/hazyumps/deepseek-v4-flash-gb10) (DSpark, fp8 KV cache, 384K
+context) reports **~40-60 tok/s single-stream decode**, and a separately-reported user config
+on NVIDIA's developer forums (DSpark, 69.4% draft acceptance, tested at 897K context depth)
+lands at **~53-56 tok/s** — two independent sources landing in a consistent range. That's
+noticeably behind our ~93 tok/s despite similar power draw, and matches the general pattern:
+DGX Spark's 128GB-per-unit unified memory is generous on capacity, but it's LPDDR5x, far
+slower than the HBM2 on real datacenter-class silicon like these unlocked A100 dies — and
+decode speed for large models is usually bottlenecked by memory bandwidth, not raw compute.
 
 ## How does this compare to the big AI assistants?
 
