@@ -44,6 +44,8 @@ The community technical reference for this card is
   `vllm-dsv4/phase5-launch-dspark-production.sh` for the current best-known
   launch config (verified via a deliberate crash-reproduction test campaign,
   not just "it loaded once").
+- `HOWTO-RUN-DEEPSEEK-V4-FLASH.md` — beginner walkthrough for the `vllm-dsv4/`
+  track: load, launch, chat with, and shut down the model step by step.
 - `bench-*.sh`, `run-*.sh`, `label-artifact*.sh` — the llama.cpp/GGUF-based
   benchmark and inference launch scripts (the earlier, slower track before
   the vLLM work above).
