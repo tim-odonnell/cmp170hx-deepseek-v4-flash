@@ -1,0 +1,23 @@
+# 0731 protection snapshot 2026-09-29T09:05:03-04:00 -- re-run these checks later; all should match
+## image
+sha256:49516546cb70cac5d7c859c39c17df877dbf3439a639f135c93f331a76ebf7e9 created=2026-08-14T19:32:51.474153662-04:00
+## live source tree ~/CMP-170HX-PROJECT/vllm-dsv4/vllm
+f8ea5bb163c161ef38b401d055cc5fd4a934091a
+f1d02184da239b2fdeb2110af4d85459  -
+51b41f6894c61e9ad584ca80ef1e21cb  -
+## launch scripts
+0985f854a54807ae4b6fd34946c0a91a028b90c8bc17b2162ad2bf23cba35fdd  /home/user/CMP-170HX-PROJECT/vllm-dsv4/phase3-launch-nospec.sh
+1c064587e6dbc4d16c935be75e3e0934b642cde060888abbf92aa8287be09c00  /home/user/CMP-170HX-PROJECT/vllm-dsv4/phase4b-launch-dspark-lowbatch.sh
+73d25b9eeb22de20857efe25c18b4dee48673c1089569d7ebb346ec600ea5b71  /home/user/CMP-170HX-PROJECT/vllm-dsv4/phase4c-launch-dspark-partition-test.sh
+cc38e29da62bdd188d39a5e84a8018dda91cd687d9def121c087d1037625fb11  /home/user/CMP-170HX-PROJECT/vllm-dsv4/phase4d-launch-dspark-util-test.sh
+b24cbcf6e31e181e0d54e2a96cafa83af4cca9f6d5bbbc8fe9bd1506bdf81d29  /home/user/CMP-170HX-PROJECT/vllm-dsv4/phase4-launch-dspark.sh
+52715bb8458a5e7fb6141c2e3460716eb1807419f34fed50362dbbe0fd6a449d  /home/user/CMP-170HX-PROJECT/vllm-dsv4/phase5-launch-dspark-production.sh
+0985f854a54807ae4b6fd34946c0a91a028b90c8bc17b2162ad2bf23cba35fdd  /home/user/cmp170hx-deepseek-v4-flash/vllm-dsv4/phase3-launch-nospec.sh
+1c064587e6dbc4d16c935be75e3e0934b642cde060888abbf92aa8287be09c00  /home/user/cmp170hx-deepseek-v4-flash/vllm-dsv4/phase4b-launch-dspark-lowbatch.sh
+73d25b9eeb22de20857efe25c18b4dee48673c1089569d7ebb346ec600ea5b71  /home/user/cmp170hx-deepseek-v4-flash/vllm-dsv4/phase4c-launch-dspark-partition-test.sh
+cc38e29da62bdd188d39a5e84a8018dda91cd687d9def121c087d1037625fb11  /home/user/cmp170hx-deepseek-v4-flash/vllm-dsv4/phase4d-launch-dspark-util-test.sh
+b24cbcf6e31e181e0d54e2a96cafa83af4cca9f6d5bbbc8fe9bd1506bdf81d29  /home/user/cmp170hx-deepseek-v4-flash/vllm-dsv4/phase4-launch-dspark.sh
+0ca56b7417cd95a259e7a39506c29b20ff0dfb781ebf0b5d12b9b8178339547c  /home/user/cmp170hx-deepseek-v4-flash/vllm-dsv4/phase5-launch-dspark-production.sh
+## model dir
+166899542567	/home/user/models/models/deepseek-ai-DeepSeek-V4-Flash-0731
+1dc474eba918c7604770a246b45f6874  -

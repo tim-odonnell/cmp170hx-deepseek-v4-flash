@@ -1,0 +1,3 @@
+prompt ~630000 tokens x1; idle MiB {0: 58160, 1: 57024, 2: 63092, 3: 0}
+{'i': 0, 'prompt_tokens': 629708, 'completion_tokens': 20, 'wall_s': 480.46, 'finish': 'stop', 'answer_head': 'list the first three FILE headers above, then summarize what the last file does in two sentences.'}
+{"idle_mib": {"0": 58160, "1": 57024, "2": 63092, "3": 0}, "peak_mib": {"0": 59456, "1": 58338, "2": 64370, "3": 0}, "error": null, "health_after": "ok"}

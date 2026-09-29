@@ -1,0 +1,90 @@
+From 66684194372c06b432d71b09a3288d68b08f3611 Mon Sep 17 00:00:00 2001
+From: local <local@local>
+Date: Tue, 29 Sep 2026 11:11:27 -0400
+Subject: [PATCH] deepseek_v4 vision: build ViT/aligner on first PP rank only
+ (frees ~0.87 GiB/rank on PP>1)
+
+---
+ vllm/models/deepseek_v4/nvidia/vl_model.py | 24 ++++++++++++++++------
+ 1 file changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/vllm/models/deepseek_v4/nvidia/vl_model.py b/vllm/models/deepseek_v4/nvidia/vl_model.py
+index b946e48..c0f56a2 100644
+--- a/vllm/models/deepseek_v4/nvidia/vl_model.py
++++ b/vllm/models/deepseek_v4/nvidia/vl_model.py
+@@ -34,6 +34,7 @@ from vllm.model_executor.models.utils import (
+     init_vllm_registered_model,
+     maybe_prefix,
+ )
++from vllm.distributed import get_pp_group
+ from vllm.multimodal import MULTIMODAL_REGISTRY
+ 
+ from ..common.mm_preprocess import (
+@@ -49,7 +50,7 @@ from .model import _make_deepseek_v4_weights_mapper
+ 
+ 
+ def _make_deepseek_v4_vl_weights_mapper(
+-    expert_dtype: str, image_enabled: bool
++    expert_dtype: str, image_enabled: bool, build_tower: bool = True
+ ) -> WeightsMapper:
+     """Text-checkpoint mapping rules re-rooted under ``language_model.``."""
+     base = _make_deepseek_v4_weights_mapper(expert_dtype)
+@@ -62,6 +63,10 @@ def _make_deepseek_v4_vl_weights_mapper(
+     }
+     if not image_enabled:
+         orig_to_new_prefix.update({"vision.": None, "aligner.": None, "image_": None})
++    elif not build_tower:
++        # Non-first PP rank: no ViT/aligner here (the encoder only runs on the
++        # first rank), so drop their weights. image_* sentinels are still loaded.
++        orig_to_new_prefix.update({"vision.": None, "aligner.": None})
+     return WeightsMapper(
+         orig_to_new_prefix=orig_to_new_prefix,
+         orig_to_new_regex=base.orig_to_new_regex,
+@@ -144,6 +149,11 @@ class DeepseekV4ForConditionalGeneration(
+             config.vision_n_layers > 0
+             and self.multimodal_config.get_limit_per_prompt("image") > 0
+         )
++        # The multimodal encoder (and its cache/profiling) only runs on the first
++        # PP rank (v1/worker/gpu/model_runner.py gates on is_first_pp_rank), so
++        # other ranks would carry a dead ~0.87 GiB ViT+aligner copy. On 3x 64 GB
++        # PP3 that copy is exactly the KV headroom the last rank is missing.
++        build_tower = image_enabled and get_pp_group().is_first_rank
+         with self._mark_tower_model(vllm_config, {"image"}):
+             self.vision: DeepseekV4ViT | None = None
+             self.aligner: DeepseekV4Aligner | None = None
+@@ -152,8 +162,9 @@ class DeepseekV4ForConditionalGeneration(
+             self.image_newline: nn.Parameter | None = None
+             self.image_pad: nn.Parameter | None = None
+             if image_enabled:
+-                self.vision = DeepseekV4ViT(config)
+-                self.aligner = DeepseekV4Aligner(config)
++                if build_tower:
++                    self.vision = DeepseekV4ViT(config)
++                    self.aligner = DeepseekV4Aligner(config)
+                 for name in (
+                     "image_start",
+                     "image_end",
+@@ -167,8 +178,9 @@ class DeepseekV4ForConditionalGeneration(
+                             torch.empty(config.hidden_size, dtype=torch.float32)
+                         ),
+                     )
+-                self.vision.to(dtype=model_config.dtype)
+-                self.aligner.to(dtype=model_config.dtype)
++                if build_tower:
++                    self.vision.to(dtype=model_config.dtype)
++                    self.aligner.to(dtype=model_config.dtype)
+ 
+         with self._mark_language_model(vllm_config):
+             # The arch convertor routes any config with a vision tower to
+@@ -198,7 +210,7 @@ class DeepseekV4ForConditionalGeneration(
+ 
+         expert_dtype = getattr(config, "expert_dtype", "fp4")
+         self.hf_to_vllm_mapper = _make_deepseek_v4_vl_weights_mapper(
+-            expert_dtype, image_enabled
++            expert_dtype, image_enabled, build_tower
+         )
+ 
+     def _parse_and_validate_image_input(self, **kwargs: object) -> dict | None:
+-- 
+2.43.0
+

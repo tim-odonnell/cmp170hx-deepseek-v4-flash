@@ -1,0 +1,54 @@
+{
+ "model": "dsv4v",
+ "port": 8099,
+ "depths": {
+  "100000": {
+   "prompt_tokens": 99724,
+   "prefill_s": 46.3,
+   "prefill_tok_s": 2154,
+   "decode_mean": 78.1,
+   "decode_median": 78.13,
+   "runs": [
+    {
+     "ttft_s": 0.67,
+     "decode_tok_s": 74.27,
+     "prompt_tokens": 99724
+    },
+    {
+     "ttft_s": 0.63,
+     "decode_tok_s": 81.9,
+     "prompt_tokens": 99723
+    },
+    {
+     "ttft_s": 0.62,
+     "decode_tok_s": 78.13,
+     "prompt_tokens": 99722
+    }
+   ]
+  },
+  "300000": {
+   "prompt_tokens": 299806,
+   "prefill_s": 125.8,
+   "prefill_tok_s": 2384,
+   "decode_mean": 68.35,
+   "decode_median": 70.21,
+   "runs": [
+    {
+     "ttft_s": 1.76,
+     "decode_tok_s": 70.21,
+     "prompt_tokens": 299806
+    },
+    {
+     "ttft_s": 1.66,
+     "decode_tok_s": 61.78,
+     "prompt_tokens": 299805
+    },
+    {
+     "ttft_s": 1.68,
+     "decode_tok_s": 73.06,
+     "prompt_tokens": 299804
+    }
+   ]
+  }
+ }
+}

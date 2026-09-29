@@ -1,0 +1,17 @@
+image:      dsv4-vision:sm80-leinasi-4fe10bf
+id:         sha256:3c2ff1ecb9fc8b42cc55e84005fed6fc2a5713bb984525d95659ba398873e238  (35.4 GB)
+built:      2026-09-29 09:06 -> 09:42 EDT (~36 min total: ~20 min compile, ~8 min layer export) on EPYC 7413, 24 threads
+fork:       leinasi2014/deepseek-v4-vision-cmp170hx @ 4fe10bf51c617edb819b7728074c8fa8a3d6c54b
+cutlass:    NVIDIA/cutlass @ da5e086dab31d63815acafdac9a9c5893b1c69e2 (v4.4.2, = fork's CMakeLists CUTLASS_REVISION)
+triton:     triton-lang/triton @ 0add68262ab0a2e33b84524346cb27cbb2787356 (v3.5.1, = fork's triton_kernels.cmake tag)
+dockerfile: docker/Dockerfile.cmp170hx-sm80 (unmodified)
+toolchain:  CUDA 13.0.88, torch 2.13.0+cu130, python 3.12
+gates:      Dockerfile gate "custom ops import OK"; with GPUs 0-2 attached: 3x CMP 170HX visible,
+            capability (8,0), deepseek_v4 vl_model/model/dspark/ampere imports OK.
+notes:      - gate WITHOUT GPUs fails (Triton disables itself with 0 drivers -> fp8_sm80 import
+              TypeError). Always gate with --runtime=nvidia. Not an image fault.
+            - "No module named vllm._C" warning is expected: this fork ships kernels as
+              _C_stable_libtorch.abi3.so / _moe_C_stable_libtorch.abi3.so.
+            - "No module named triton_kernels.matmul_ogs": only used by the Triton MXFP4 MoE
+              backend; SM80 uses Marlin (0731 log: "Using 'MARLIN' Mxfp4 MoE backend").
+              Confirm Marlin is selected at boot.

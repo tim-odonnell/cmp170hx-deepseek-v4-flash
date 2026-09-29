@@ -1,0 +1,202 @@
+
+==========
+== CUDA ==
+==========
+
+CUDA Version 13.0.2
+
+Container image Copyright (c) 2016-2023, NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+A copy of this license is made available in this container at /NGC-DL-CONTAINER-LICENSE for your convenience.
+
+(APIServer pid=1) INFO 09-29 13:47:55 [api_utils.py:345] 
+(APIServer pid=1) INFO 09-29 13:47:55 [api_utils.py:345]        █     █     █▄   ▄█
+(APIServer pid=1) INFO 09-29 13:47:55 [api_utils.py:345]  ▄▄ ▄█ █     █     █ ▀▄▀ █  version 0.0.0
+(APIServer pid=1) INFO 09-29 13:47:55 [api_utils.py:345]   █▄█▀ █     █     █     █  model   /model
+(APIServer pid=1) INFO 09-29 13:47:55 [api_utils.py:345]    ▀▀  ▀▀▀▀▀ ▀▀▀▀▀ ▀     ▀
+(APIServer pid=1) INFO 09-29 13:47:55 [api_utils.py:345] 
+(APIServer pid=1) INFO 09-29 13:47:55 [api_utils.py:273] non-default args: {'model_tag': '/model', 'enable_auto_tool_choice': True, 'tool_call_parser': 'deepseek_v4', 'host': '0.0.0.0', 'model': '/model', 'tokenizer_mode': 'deepseek_v4', 'trust_remote_code': True, 'max_model_len': 16384, 'served_model_name': ['dsv4v'], 'override_generation_config': {'top_p': 0.95}, 'reasoning_parser': 'deepseek_v4', 'pipeline_parallel_size': 3, 'block_size': 256, 'gpu_memory_utilization': 0.93, 'kv_cache_dtype': 'fp8', 'limit_mm_per_prompt': {'image': 2}, 'max_num_batched_tokens': 2048, 'max_num_seqs': 2, 'enable_flashinfer_autotune': False, 'speculative_config': {'method': 'dspark', 'num_speculative_tokens': 5, 'draft_tensor_parallel_size': 1, 'draft_sample_method': 'probabilistic'}}
+(APIServer pid=1) WARNING 09-29 13:47:55 [envs.py:2417] Unknown vLLM environment variable detected: VLLM_PP_COMM_PRIME
+(APIServer pid=1) WARNING 09-29 13:47:55 [envs.py:2417] Unknown vLLM environment variable detected: VLLM_CUTLASS_SRC_DIR
+(APIServer pid=1) WARNING 09-29 13:47:55 [envs.py:2417] Unknown vLLM environment variable detected: VLLM_PREFILL_BLOCK_H
+(APIServer pid=1) INFO 09-29 13:47:55 [config.py:774] Detected quantization_config.scale_fmt=ue8m0; enabling UE8M0 for DeepGEMM.
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] Error in inspecting model architecture 'DeepseekV4ForConditionalGeneration'
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] Traceback (most recent call last):
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "/vllm/vllm/model_executor/models/registry.py", line 1484, in _run_in_subprocess
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]     returned.check_returncode()
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "/usr/lib/python3.12/subprocess.py", line 502, in check_returncode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]     raise CalledProcessError(self.returncode, self.args, self.stdout,
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] subprocess.CalledProcessError: Command '['/opt/venv/bin/python3.12', '-m', 'vllm.model_executor.models.registry']' died with <Signals.SIGSEGV: 11>.
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] 
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] The above exception was the direct cause of the following exception:
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] 
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] Traceback (most recent call last):
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "/vllm/vllm/model_executor/models/registry.py", line 1047, in _try_inspect_model_cls
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]     return model.inspect_model_cls()
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]            ^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "/vllm/vllm/logging_utils/log_time.py", line 21, in _wrapper
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]     result = func(*args, **kwargs)
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]              ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "/vllm/vllm/model_executor/models/registry.py", line 1008, in inspect_model_cls
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]     mi = _run_in_subprocess(
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]          ^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "/vllm/vllm/model_executor/models/registry.py", line 1487, in _run_in_subprocess
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]     raise RuntimeError(
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] RuntimeError: Error raised in subprocess:
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] <frozen runpy>:128: RuntimeWarning: 'vllm.model_executor.models.registry' found in sys.modules after import of package 'vllm.model_executor.models', but prior to execution of 'vllm.model_executor.models.registry'; this may result in unpredictable behaviour
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] Failed to get device capability: CUDA driver initialization failed, you might not have a CUDA gpu..
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] Failed to get device capability: CUDA driver initialization failed, you might not have a CUDA gpu..
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] !!!!!!! Segfault encountered !!!!!!!
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in cuInit
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_Vectorcall
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyObject_Call_Prepend
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyObject_MakeTpCall
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyObject_Call_Prepend
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_Call
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyObject_Call_Prepend
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyObject_MakeTpCall
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_CallMethodObjArgs
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyImport_ImportModuleLevelObject
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyEval_EvalCode
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in PyObject_Vectorcall
+(APIServer pid=1) Traceback (most recent call last):
+(APIServer pid=1)   File "/opt/venv/bin/vllm", line 6, in <module>
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _PyEval_EvalFrameDefault
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in Py_RunMain
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in Py_BytesMain
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in _start
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049]   File "<unknown>", line 0, in 0xffffffffffffffff
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] 
+(APIServer pid=1) ERROR 09-29 13:49:12 [registry.py:1049] 
+(APIServer pid=1)     sys.exit(main())
+(APIServer pid=1)              ^^^^^^
+(APIServer pid=1)   File "/vllm/vllm/entrypoints/cli/main.py", line 97, in main
+(APIServer pid=1)     args.dispatch_function(args)
+(APIServer pid=1)   File "/vllm/vllm/entrypoints/cli/serve.py", line 152, in cmd
+(APIServer pid=1)     uvloop.run(run_server(args))
+(APIServer pid=1)   File "/opt/venv/lib/python3.12/site-packages/uvloop/__init__.py", line 96, in run
+(APIServer pid=1)     return __asyncio.run(
+(APIServer pid=1)            ^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/lib/python3.12/asyncio/runners.py", line 194, in run
+(APIServer pid=1)     return runner.run(main)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/usr/lib/python3.12/asyncio/runners.py", line 118, in run
+(APIServer pid=1)     return self._loop.run_until_complete(task)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "uvloop/loop.pyx", line 1518, in uvloop.loop.Loop.run_until_complete
+(APIServer pid=1)   File "/opt/venv/lib/python3.12/site-packages/uvloop/__init__.py", line 48, in wrapper
+(APIServer pid=1)     return await main
+(APIServer pid=1)            ^^^^^^^^^^
+(APIServer pid=1)   File "/vllm/vllm/entrypoints/openai/api_server.py", line 764, in run_server
+(APIServer pid=1)     await run_server_worker(listen_address, sock, args, **uvicorn_kwargs)
+(APIServer pid=1)   File "/vllm/vllm/entrypoints/openai/api_server.py", line 778, in run_server_worker
+(APIServer pid=1)     async with build_async_engine_client(
+(APIServer pid=1)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=1)     return await anext(self.gen)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/vllm/vllm/entrypoints/openai/api_server.py", line 132, in build_async_engine_client
+(APIServer pid=1)     async with build_async_engine_client_from_engine_args(
+(APIServer pid=1)   File "/usr/lib/python3.12/contextlib.py", line 210, in __aenter__
+(APIServer pid=1)     return await anext(self.gen)
+(APIServer pid=1)            ^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/vllm/vllm/entrypoints/openai/api_server.py", line 156, in build_async_engine_client_from_engine_args
+(APIServer pid=1)     vllm_config = engine_args.create_engine_config(usage_context=usage_context)
+(APIServer pid=1)                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/vllm/vllm/engine/arg_utils.py", line 1925, in create_engine_config
+(APIServer pid=1)     model_config = self.create_model_config()
+(APIServer pid=1)                    ^^^^^^^^^^^^^^^^^^^^^^^^^^
+(APIServer pid=1)   File "/vllm/vllm/engine/arg_utils.py", line 1682, in create_model_config
+(APIServer pid=1)     return ModelConfig(
+(APIServer pid=1)            ^^^^^^^^^^^^
+(APIServer pid=1)   File "/opt/venv/lib/python3.12/site-packages/pydantic/_internal/_dataclasses.py", line 121, in __init__
+(APIServer pid=1)     s.__pydantic_validator__.validate_python(ArgsKwargs(args, kwargs), self_instance=s)
+(APIServer pid=1) pydantic_core._pydantic_core.ValidationError: 1 validation error for ModelConfig
+(APIServer pid=1)   Value error, Model architectures ['DeepseekV4ForConditionalGeneration'] failed to be inspected. Please check the logs for more details. [type=value_error, input_value=ArgsKwargs((), {'model': ...nderer_num_workers': 1}), input_type=ArgsKwargs]
+(APIServer pid=1)     For further information visit https://errors.pydantic.dev/2.13/v/value_error

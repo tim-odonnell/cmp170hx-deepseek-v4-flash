@@ -46,6 +46,12 @@ The community technical reference for this card is
   not just "it loaded once").
 - `HOWTO-RUN-DEEPSEEK-V4-FLASH.md` — beginner walkthrough for the `vllm-dsv4/`
   track: load, launch, chat with, and shut down the model step by step.
+- **`HOWTO-RUN-DEEPSEEK-V4-FLASH-VISION-EXP.md`** — the vision-capable version:
+  DeepSeek-V4-Flash-Vision-Exp on the same 3 cards, same 0.965 GPU fill, same 691,968
+  context, plus image input and tool calling (~86 tok/s vs 0731's ~100 on short prompts; near
+  parity at 100k context). Engineering record, test scripts, the vision-tower patch that made
+  the 3-card fit possible, and a crash-troubleshooting guide are in `vision-exp-3card/`.
+  Switch between the two models with one command.
 - `bench-*.sh`, `run-*.sh`, `label-artifact*.sh` — the llama.cpp/GGUF-based
   benchmark and inference launch scripts (the earlier, slower track before
   the vLLM work above).

@@ -1,3 +1,9 @@
+> **CORRECTION (2026-09-29):** this planning doc says DSpark is "not supported" for Vision-Exp.
+> **That's wrong.** The checkpoint ships the full DSpark drafter; only `wtdcode/vllm-backport` PR #58's
+> code dropped it. Vision-Exp now runs with DSpark on 3 cards. See
+> [`../HOWTO-RUN-DEEPSEEK-V4-FLASH-VISION-EXP.md`](../HOWTO-RUN-DEEPSEEK-V4-FLASH-VISION-EXP.md) and
+> [`../vision-exp-3card/`](../vision-exp-3card/). Kept as the historical planning record.
+
 # PLAN — fitting DSv4-Flash + vision on 3 cards (card 4 reserved for ComfyUI/Blender)
 
 Hard constraint: whatever we build must run entirely on 3x CMP 170HX (192GB pool), leaving

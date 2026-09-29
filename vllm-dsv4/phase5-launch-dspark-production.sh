@@ -37,6 +37,11 @@ PARTITION="${4:-15,15,13}"
 MAXBATCH="${5:-2048}"
 NAME="dsv4-a100-3card"
 SPEC='--speculative-config {"method":"dspark","num_speculative_tokens":5}'
+# top_p=0.95 (not the checkpoint's default 1.0) per DeepSeek's official recommendation
+# for agentic workloads -- this box's only opencode use case. Verified via A/B
+# (2026-08-20): no speed cost, no coherence loss, slightly sharper tool/command
+# choices in a sample coding-debug prompt. temperature stays at the checkpoint
+# default (1.0) via generation_config.json; only top_p is overridden.
 
 [[ -d "$MODEL" ]] || { echo "ERROR: model dir not found: $MODEL"; exit 1; }
 docker image inspect "$IMG" >/dev/null 2>&1 || { echo "ERROR: image $IMG not built yet"; exit 1; }
@@ -66,7 +71,9 @@ docker run -d --name "$NAME" --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0,1,2 \
   --pipeline-parallel-size 3 --kv-cache-dtype fp8 --block-size 256 \
   --max-model-len "$MAXLEN" --max-num-batched-tokens "$MAXBATCH" --trust-remote-code \
   --gpu-memory-utilization "$UTIL" --max-num-seqs "$MAXSEQS" \
+  --override-generation-config '{"top_p": 0.95}' \
   --no-enable-flashinfer-autotune --tokenizer-mode deepseek_v4 \
+  --enable-auto-tool-choice --tool-call-parser deepseek_v4 --reasoning-parser deepseek_v4 \
   $SPEC >/dev/null
 
 echo "launched $NAME on :8098 (util=$UTIL, maxlen=$MAXLEN, max_num_seqs=$MAXSEQS, partition=$PARTITION, DSpark) -- PRODUCTION DEFAULT"

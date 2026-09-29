@@ -1,3 +1,9 @@
+> **CORRECTION (2026-09-29):** this planning doc says DSpark is "not supported" for Vision-Exp.
+> **That's wrong.** The checkpoint ships the full DSpark drafter; only `wtdcode/vllm-backport` PR #58's
+> code dropped it. Vision-Exp now runs with DSpark on 3 cards. See
+> [`HOWTO-RUN-DEEPSEEK-V4-FLASH-VISION-EXP.md`](HOWTO-RUN-DEEPSEEK-V4-FLASH-VISION-EXP.md) and
+> [`vision-exp-3card/`](vision-exp-3card/). Kept as the historical planning record.
+
 # DeepSeek V4 / vision research session — plan (2026-09-28)
 
 One research session, two threads that ended up connected: started by checking whether a

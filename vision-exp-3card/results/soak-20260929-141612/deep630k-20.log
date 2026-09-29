@@ -1,0 +1,3 @@
+prompt ~630000 tokens x1; idle MiB {0: 60728, 1: 58404, 2: 64512, 3: 0}
+{'i': 0, 'prompt_tokens': 629706, 'completion_tokens': 150, 'wall_s': 474.32, 'finish': 'stop', 'answer_head': 'Based on the provided files, here are the first three FILE headers and a summary of the last file:\n\n**First three FILE headers:**\n1. `### FILE __init__.py`\n2. `### FILE _aiter_ops.py`\n3. `### FILE _cu'}
+{"idle_mib": {"0": 60728, "1": 58404, "2": 64512, "3": 0}, "peak_mib": {"0": 60728, "1": 58404, "2": 64512, "3": 0}, "error": null, "health_after": "ok"}

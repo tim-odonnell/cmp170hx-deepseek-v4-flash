@@ -1,0 +1,173 @@
+{
+ "time": "2026-09-29T14:38:43",
+ "port": 8099,
+ "model": "dsv4v",
+ "summary": {
+  "G1": true,
+  "G2": true,
+  "G3": true,
+  "G4": true,
+  "G5": true,
+  "G6": true,
+  "G7": true,
+  "G8": true,
+  "G9": true
+ },
+ "results": {
+  "G1": {
+   "status": 200,
+   "text": "GREEN, ORANGE",
+   "s": 0.39,
+   "usage": {
+    "prompt_tokens": 179,
+    "total_tokens": 185,
+    "completion_tokens": 6,
+    "prompt_tokens_details": null
+   },
+   "pass": true
+  },
+  "G2": {
+   "status": 200,
+   "text": "LEFT, RIGHT",
+   "s": 0.14,
+   "usage": {
+    "prompt_tokens": 31,
+    "total_tokens": 35,
+    "completion_tokens": 4,
+    "prompt_tokens_details": null
+   },
+   "pass": true
+  },
+  "G3": {
+   "status": 200,
+   "text": "YELLOW, PURPLE",
+   "s": 0.39,
+   "usage": {
+    "prompt_tokens": 179,
+    "total_tokens": 186,
+    "completion_tokens": 7,
+    "prompt_tokens_details": null
+   },
+   "pass": true
+  },
+  "G4": {
+   "status": 200,
+   "text": "Part,Qty,Width,Height,Cost\nP-466,53,62.5,37.2,261.28\nP-744,36,29.9,60.2,324.47\nP-220,26,76.4,89.8,832.37\nP-299,55,49.0,49.0,640.88",
+   "s": 0.95,
+   "usage": {
+    "prompt_tokens": 145,
+    "total_tokens": 227,
+    "completion_tokens": 82,
+    "prompt_tokens_details": null
+   },
+   "truth": [
+    [
+     "Part",
+     "Qty",
+     "Width",
+     "Height",
+     "Cost"
+    ],
+    [
+     "P-466",
+     "53",
+     "62.5",
+     "37.2",
+     "261.28"
+    ],
+    [
+     "P-744",
+     "36",
+     "29.9",
+     "60.2",
+     "324.47"
+    ],
+    [
+     "P-220",
+     "26",
+     "76.4",
+     "89.8",
+     "832.37"
+    ],
+    [
+     "P-299",
+     "55",
+     "49.0",
+     "49.0",
+     "640.88"
+    ]
+   ],
+   "cells_correct": "25/25",
+   "pass_": true,
+   "pass": true
+  },
+  "G5": {
+   "status": 200,
+   "text": "1) Aurora Parts Dashboard\n2) 3\n3) Orange (or burnt orange/red-orange), \"Export report\"\n4) The text in the third card (\"Revenue $41,200\") is overlapping and cluttered. The label \"Revenue\" is positioned directly on top of the dollar amount, making the text difficult to read.",
+   "s": 1.38,
+   "usage": {
+    "prompt_tokens": 373,
+    "total_tokens": 444,
+    "completion_tokens": 71,
+    "prompt_tokens_details": null
+   },
+   "checks": {
+    "heading": true,
+    "three_cards": true,
+    "button_orange_red": true,
+    "button_label": true,
+    "bug_revenue_overlap": true
+   },
+   "pass": true
+  },
+  "G6": {
+   "status": 200,
+   "text": "Second",
+   "s": 0.5,
+   "usage": {
+    "prompt_tokens": 320,
+    "total_tokens": 322,
+    "completion_tokens": 2,
+    "prompt_tokens_details": null
+   },
+   "pass": true
+  },
+  "G7": {
+   "pass": true,
+   "bad": [],
+   "answers": [
+    "GREEN, ORANGE",
+    "Paris",
+    "YELLOW, PURPLE",
+    "Tokyo",
+    "GREEN, ORANGE",
+    "Rome",
+    "YELLOW, PURPLE",
+    "Ottawa"
+   ]
+  },
+  "G8": {
+   "status": 400,
+   "text": "{\"error\":{\"message\":\"Failed to load image: cannot identify image file <_io.BytesIO object>\",\"type\":\"BadRequestError\",\"param\":null,\"code\":400}}",
+   "s": 0.0,
+   "healthy_after": true,
+   "pass": true
+  },
+  "G9": {
+   "c1": {
+    "ok": 1,
+    "max_s": 0.42
+   },
+   "c2": {
+    "ok": 2,
+    "max_s": 0.57
+   },
+   "c4": {
+    "ok": 4,
+    "max_s": 0.83
+   },
+   "healthy_after": true,
+   "pass": true
+  }
+ }
+}

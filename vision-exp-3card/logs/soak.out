@@ -1,0 +1,22 @@
+SOAK START 2026-09-29 14:16:12 duration=9000s results=results/soak-20260929-141612 xid_baseline=0
+loop 1 ok 14:16:36 (24s) | gates all pass | burst ok [290, 300, 300, 232, 300, 265] | -
+loop 2 ok 14:16:57 (21s) | gates all pass | burst ok [300, 300, 300, 221, 262, 283] | -
+loop 3 ok 14:19:49 (172s) | gates all pass | burst ok [300, 300, 300, 292, 300, 267] | deep250k ok
+loop 4 ok 14:20:11 (22s) | gates all pass | burst ok [282, 300, 300, 249, 293, 300] | -
+loop 5 ok 14:20:31 (20s) | gates all pass | burst ok [300, 300, 300, 272, 300, 300] | -
+loop 6 ok 14:23:21 (170s) | gates all pass | burst ok [296, 300, 300, 244, 275, 300] | deep250k ok
+loop 7 ok 14:23:42 (21s) | gates all pass | burst ok [300, 300, 300, 276, 296, 300] | -
+loop 8 ok 14:24:04 (22s) | gates all pass | burst ok [300, 300, 300, 220, 300, 268] | -
+loop 9 ok 14:26:50 (166s) | gates all pass | burst ok [264, 300, 300, 231, 300, 300] | deep250k ok
+loop 10 ok 14:35:27 (517s) | gates all pass | burst ok [300, 300, 300, 249, 300, 284] | deep630k ok
+loop 11 ok 14:35:48 (21s) | gates all pass | burst ok [300, 300, 300, 257, 219, 293] | -
+loop 12 ok 14:38:34 (166s) | gates all pass | burst ok [300, 300, 300, 236, 300, 300] | deep250k ok
+loop 13 ok 14:38:56 (22s) | gates all pass | burst ok [300, 300, 300, 294, 284, 276] | -
+loop 14 ok 14:39:16 (20s) | gates all pass | burst ok [300, 300, 300, 249, 259, 297] | -
+loop 15 ok 14:42:02 (166s) | gates all pass | burst ok [296, 300, 300, 263, 260, 300] | deep250k ok
+loop 16 ok 14:42:23 (21s) | gates all pass | burst ok [300, 300, 300, 259, 277, 243] | -
+loop 17 ok 14:42:44 (21s) | gates all pass | burst ok [294, 300, 300, 248, 269, 283] | -
+loop 18 ok 14:45:30 (166s) | gates all pass | burst ok [300, 282, 298, 263, 300, 274] | deep250k ok
+loop 19 ok 14:45:51 (21s) | gates all pass | burst ok [300, 299, 300, 227, 297, 279] | -
+loop 20 ok 14:54:28 (517s) | gates all pass | burst ok [300, 284, 300, 239, 232, 262] | deep630k ok
+SOAK STOPPED EARLY BY USER 2026-09-29 14:55:20 after 20 completed loops (38 min, 2x deep630k, 6x deep250k), 0 failures, new xid=0

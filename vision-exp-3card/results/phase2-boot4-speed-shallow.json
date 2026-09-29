@@ -1,0 +1,47 @@
+{
+ "time": "2026-09-29T11:04:56",
+ "port": 8099,
+ "model": "dsv4v",
+ "summary": {
+  "mean": 83.1,
+  "median": 80.77,
+  "min": 71.51,
+  "max": 101.88,
+  "ttft_median_s": 0.197,
+  "runs": 5,
+  "tokens": 300,
+  "image": false
+ },
+ "runs": [
+  {
+   "ttft_s": 0.171,
+   "decode_tok_s": 86.85,
+   "completion_tokens": 300,
+   "prompt_tokens": 38
+  },
+  {
+   "ttft_s": 0.2,
+   "decode_tok_s": 80.77,
+   "completion_tokens": 300,
+   "prompt_tokens": 39
+  },
+  {
+   "ttft_s": 0.223,
+   "decode_tok_s": 101.88,
+   "completion_tokens": 300,
+   "prompt_tokens": 35
+  },
+  {
+   "ttft_s": 0.188,
+   "decode_tok_s": 71.51,
+   "completion_tokens": 300,
+   "prompt_tokens": 26
+  },
+  {
+   "ttft_s": 0.197,
+   "decode_tok_s": 74.48,
+   "completion_tokens": 300,
+   "prompt_tokens": 32
+  }
+ ]
+}

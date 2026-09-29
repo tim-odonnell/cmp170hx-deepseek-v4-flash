@@ -1,0 +1,31 @@
+{
+ "port": 8099,
+ "model": "dsv4v",
+ "target_tokens": 630000,
+ "concurrency": 1,
+ "idle_mib": {
+  "0": 60228,
+  "1": 57906,
+  "2": 64014,
+  "3": 0
+ },
+ "peak_mib": {
+  "0": 60728,
+  "1": 58404,
+  "2": 64512,
+  "3": 0
+ },
+ "results": [
+  {
+   "i": 0,
+   "prompt_tokens": 629706,
+   "completion_tokens": 151,
+   "wall_s": 473.9,
+   "finish": "stop",
+   "answer_head": "Based on the provided files, here are the first three FILE headers and a summary of the last file:\n\n**First Three FILE Headers:**\n1. `### FILE __init__.py`\n2. `### FILE _aiter_ops.py`\n3. `### FILE _cu"
+  }
+ ],
+ "error": null,
+ "health_after": "ok",
+ "time": "2026-09-29T14:35:25"
+}
