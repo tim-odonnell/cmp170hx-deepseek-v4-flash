@@ -23,6 +23,9 @@ MAXBATCH="${5:-2048}"
 SPECMODE="${6:-on}"
 NAME="dsv4-vision-3card"
 PORT="${PORT:-8099}"
+# Max images per CONVERSATION (vLLM counts every image in the request history, not per message).
+# Was 2; raised to 8 on 2026-09-29 after an opencode agent reviewing its own screenshots hit the cap.
+IMAGES="${IMAGES:-8}"
 
 # Hard ceiling from the project brief: fill must not exceed the 0731 recipe (0.965).
 awk -v u="$UTIL" 'BEGIN{exit !(u <= 0.965)}' || { echo "ERROR: util $UTIL > 0.965 (0731 ceiling), refusing"; exit 1; }
@@ -89,7 +92,7 @@ docker run -d --name "$NAME" --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0,1,2 \
     --no-enable-flashinfer-autotune --tokenizer-mode deepseek_v4 \
     --enable-auto-tool-choice --tool-call-parser deepseek_v4 --reasoning-parser deepseek_v4 \
     --override-generation-config '{"top_p": 0.95}' \
-    --limit-mm-per-prompt '{"image": 2}' \
+    --limit-mm-per-prompt "{\"image\": ${IMAGES}}" \
     "${SPEC[@]}" >/dev/null
 
 echo "launched $NAME on :$PORT (util=$UTIL, maxlen=$MAXLEN, seqs=$MAXSEQS, partition=$PARTITION, batch=$MAXBATCH, dspark=$SPECMODE)"

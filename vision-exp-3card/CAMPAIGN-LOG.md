@@ -213,3 +213,14 @@ Debug starting point for future crashes. Key insight from re-reading leinasi's w
 indexer source: their "Xid 31 after 67 min" is triggered by **context length (~174k, first long
 request), not uptime**. The unchunked indexer logits buffer is 2048 × ctx × 4 B ≈ 1.33 GiB at
 174k, about all of the last rank's slack. Our tests crossed 174k nine times with ROW_CHUNK=64, clean.
+
+## 2026-09-29 21:00 — image cap raised 2 → 8 per conversation (`IMAGES` in the launcher, default 8)
+Why: an opencode agent reviewing its own screenshots (snowboard step 2) hit the 2-image cap. vLLM counts
+every image in the conversation history, so the session could never make another request.
+- Boot: identical to config A. KV pool 797,299, per-rank consumed 54.63/52.5/58.43 GiB, idle VRAM
+  59,138/57,006/63,090 MiB. Encoder profiling budget is set by max-num-batched-tokens (2048 tokens),
+  not by the per-conversation cap.
+- Stress: 630k request with 6-image requests + gates G1/G6/G7 running concurrently (3 rounds).
+  6 solid colours named correctly in order every time, gates PASS, 0 Xid.
+  **Peak 60,292 / 58,214 / 64,264 MiB**: slightly lower than config A's first stress, and GPUs 1-2 under
+  0731's peaks (58,338 / 64,370).

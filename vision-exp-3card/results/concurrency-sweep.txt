@@ -1,0 +1,5 @@
+c= 1  aggregate   75.8 tok/s   per-user median  75.8 tok/s (min  75.8)   wall   4.0s
+c= 2  aggregate  125.2 tok/s   per-user median  68.2 tok/s (min  62.6)   wall   4.8s
+c= 4  aggregate  137.8 tok/s   per-user median  37.9 tok/s (min  34.5)   wall   8.7s
+c= 8  aggregate  181.1 tok/s   per-user median  24.9 tok/s (min  22.6)   wall  13.3s
+c=12  aggregate  171.5 tok/s   per-user median  22.5 tok/s (min  14.3)   wall  21.0s

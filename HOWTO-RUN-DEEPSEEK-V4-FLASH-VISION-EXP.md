@@ -133,7 +133,7 @@ curl -s http://localhost:8099/v1/chat/completions -H 'Content-Type: application/
   ]}]
 }' | python3 -m json.tool
 ```
-Up to 2 images per request; each costs ≤ 384 tokens. Tool calling works with standard OpenAI
+Up to **8 images per conversation** (vLLM counts every image in the chat history, not just the latest message; change with `IMAGES=N ./scripts/launch-vision-3card.sh`); each costs ≤ 384 tokens. Raising it from 2 to 8 was validated on 2026-09-29: identical memory/KV pool, and the 630k stress with 6-image requests alongside peaked slightly *lower* than before. Tool calling works with standard OpenAI
 `tools`.
 
 **Thinking is OFF by default** in this recipe (unlike the 0731 HOWTO, which thinks by default).
